@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+    <style>
+        /* same TUI / cyber style as login.html */
+        body {
+            background-color: black;
+            color: #c026ff;
+            font-family: "Courier New", monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .terminal {
+            background-color: #0a0a0a;
+            border: 2px solid #c026ff;
+            border-radius: 6px;
+            box-shadow: 0 0 15px #c026ff;
+            width: 460px;
+            padding: 20px;
+        }
+
+        .titlebar {
+            background-color: #111111;
+            border-bottom: 1px solid #c026ff;
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        .dots {
+            color: #ff3b30;
+            font-size: 14px;
+            margin-right: 4px;
+            display: inline-block;
+        }
+        .dots:nth-child(2) { color: #ffcc00; }
+        .dots:nth-child(3) { color: #28c840; }
+
+        label {
+            color: #7df9ff;
+            font-size: 16px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            background-color: black;
+            color: #c026ff;
+            border: 1px solid #c026ff;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #c026ff;
+            color: black;
+            border: none;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover {
+            box-shadow: 0 0 12px #c026ff;
+        }
+
+        a {
+            color: #7df9ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .cursor {
+            color: #c026ff;
+            animation: blink 1s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%   { opacity: 1; }
+            50%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .note {
+            color: #7a1fa8;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+
+        <div class="titlebar">
+            <span class="dots">&#9679;</span><span class="dots">&#9679;</span><span class="dots">&#9679;</span>
+            jessica@webapp: ~/register
+        </div>
+
+        <h2>CREATE ACCOUNT</h2>
+        <p class="note">&gt; fill in the form to register<span class="cursor">_</span></p>
+
+        <!-- onsubmit runs the JavaScript first;
+             if it returns false, nothing is submitted -->
+        <form name="registration" onsubmit="return formValidation();">
+
+            <label for="firstname">FIRST NAME :</label><br>
+            <input type="text" name="firstname" id="firstname" maxlength="45">
+
+            <label for="lastname">LAST NAME :</label><br>
+            <input type="text" name="lastname" id="lastname" maxlength="45">
+
+            <label for="userid">USER ID (5 - 12 characters) :</label><br>
+            <input type="text" name="userid" id="userid" size="12">
+
+            <label for="email">EMAIL :</label><br>
+            <input type="email" name="email" id="email">
+
+            <label for="passid">PASSWORD (6+ characters) :</label><br>
+            <input type="password" name="passid" id="passid" size="12">
+
+            <label for="pass2">CONFIRM PASSWORD :</label><br>
+            <input type="password" name="pass2" id="pass2" size="12">
+
+            <input type="submit" value="REGISTER">
+            <br><br>
+
+            <!-- back to the login screen -->
+            <a href="login.html">[ BACK TO LOGIN ]</a>
+
+        </form>
+
+    </div>
+
+    <script>
+        // ======= CLIENT SIDE VALIDATION =======
+        // Same pattern as the lab sheet example:
+        // check each field, show an alert() if it is wrong,
+        // put the cursor back in the field with .focus(),
+        // and return false so the form is NOT submitted.
+
+        function formValidation() {
+            var first = document.getElementById("firstname");
+            var last  = document.getElementById("lastname");
+            var uid   = document.getElementById("userid");
+            var email = document.getElementById("email");
+            var pass  = document.getElementById("passid");
+            var pass2 = document.getElementById("pass2");
+
+            // 1. first name cannot be empty
+            if (first.value.trim() == "") {
+                alert("ERROR: First name cannot be empty.");
+                first.focus();
+                return false;
+            }
+
+            // 2. last name cannot be empty
+            if (last.value.trim() == "") {
+                alert("ERROR: Last name cannot be empty.");
+                last.focus();
+                return false;
+            }
+
+            // 3. user id must be between 5 and 12 characters
+            //    (the exact rule from the lab sheet example)
+            if (uid.value.length < 5 || uid.value.length > 12) {
+                alert("ERROR: User ID must be between 5 and 12 characters.");
+                uid.focus();
+                return false;
+            }
+
+            // 4. email cannot be empty and must contain an @
+            if (email.value.trim() == "" || email.value.indexOf("@") == -1) {
+                alert("ERROR: Please enter a valid email address.");
+                email.focus();
+                return false;
+            }
+
+            // 5. password must be at least 6 characters
+            if (pass.value.length < 6) {
+                alert("ERROR: Password must be at least 6 characters.");
+                pass.focus();
+                return false;
+            }
+
+            // 6. both passwords must match
+            if (pass.value != pass2.value) {
+                alert("ERROR: Passwords do not match.");
+                pass2.focus();
+                return false;
+            }
+
+            // all checks passed
+            alert("SUCCESS! Account created for " + uid.value + ".");
+            return true;   // allow the submit (no backend yet, so it just reloads)
+        }
+    </script>
+
+</body>
+</html>
