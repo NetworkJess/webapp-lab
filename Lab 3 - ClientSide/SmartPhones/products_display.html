@@ -10,10 +10,12 @@
 
 <body>
 <script>
+// spin: adds the "rotate" class so the CSS animation makes the image spin
 function spin(element){
 element.className="item rotate";
 }
 
+// stopSpin: removes the "rotate" class so the image stops spinning
 function stopSpin(element){
 element.className="item";
 }
@@ -31,6 +33,7 @@ element.className="item";
         </aside>
 
         <main>
+            <!-- hover over a phone to spin it, click it to stop (Task 4) -->
             <section class="item" id="HTC" onmouseover="spin(this)" onclick="stopSpin(this)">
                 <h2>HTC</h2>
                 <p>€240.00</p>
