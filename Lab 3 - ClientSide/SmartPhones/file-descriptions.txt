@@ -1,0 +1,15 @@
+Task 4.1 - One-line descriptions of the files in SmartPhones
+==============================================================
+
+index.html              - Home page that links to the products page; click the
+                          globe image to enter the store.
+
+products_display.html   - The four phone products shown as <section> tags; this
+                          is where the spin (onmouseover) and stop (onclick)
+                          behaviour works.
+
+products-style.css      - Styling for the store - colours, layout, and the
+                          @keyframes rotation animation that makes the images
+                          spin.
+
+images/                 - Folder of product images (HTC, iPhone, Vivo, Samsung).
