@@ -31,15 +31,6 @@
             font-size: 14px;
         }
 
-        .dots {
-            color: #ff3b30;
-            font-size: 14px;
-            margin-right: 4px;
-            display: inline-block;
-        }
-        .dots:nth-child(2) { color: #ffcc00; }
-        .dots:nth-child(3) { color: #28c840; }
-
         label {
             color: #7df9ff;
             font-size: 16px;
@@ -79,20 +70,6 @@
             text-decoration: underline;
         }
 
-        .cursor {
-            color: #c026ff;
-            animation: blink 1s steps(1) infinite;
-        }
-        @keyframes blink {
-            0%   { opacity: 1; }
-            50%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .note {
-            color: #7a1fa8;
-            font-size: 12px;
-        }
     </style>
 </head>
 <body>
@@ -100,12 +77,10 @@
     <div class="terminal">
 
         <div class="titlebar">
-            <span class="dots">&#9679;</span><span class="dots">&#9679;</span><span class="dots">&#9679;</span>
             jessica@webapp: ~/register
         </div>
 
         <h2>CREATE ACCOUNT</h2>
-        <p class="note">&gt; fill in the form to register<span class="cursor">_</span></p>
 
         <!-- onsubmit runs the JavaScript first;
              if it returns false, nothing is submitted -->
