@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Smart Phone Store</title>
+
+    <link href="products-style.css" rel="stylesheet">
+</head>
+
+<body>
+<script>
+function spin(element){
+element.className="item rotate";
+}
+
+function stopSpin(element){
+element.className="item";
+}
+</script>
+	
+    <header>
+        <h1>My Used Smart Phone Store</h1>
+    </header>
+    <div>
+        <aside>
+            <div style="font-size:4rem;text-align:center;font-weight: bold;font-style: italic; color: white">
+                We sell from
+                around the globe!
+            </div>
+        </aside>
+
+        <main>
+            <section class="item" id="HTC" onmouseover="spin(this)" onclick="stopSpin(this)">
+                <h2>HTC</h2>
+                <p>€240.00</p>
+                <img src="./images/HTC.jpg" alt="HTC Phones">
+            </section>
+	
+            <section class="item" id="iPhone" onmouseover="spin(this)" onclick="stopSpin(this)">
+                <h2>iPhone</h2>
+                <p>€375.00</p>
+                <img src="./images/iphone.jpg">
+            </section>
+
+            <section class="item" id="Vivo" onmouseover="spin(this)" onclick="stopSpin(this)">
+                <h2>Vivo</h2>
+                <p>€505.00</p>
+                <img src="./images/Vivo.jpg">
+            </section>
+
+            <section class="item" id="Samsung" onmouseover="spin(this)" onclick="stopSpin(this)">
+                <h2>Samsung</h2>
+                <p>€495.00</p>
+                <img src="./images/Samsung.jpg">
+            </section>
+
+        </main>
+    </div>
+    <footer>
+        <h1>
+            Your One Stop For Used Phones
+        </h1>
+    </footer>
+</body>
+
+</html>
