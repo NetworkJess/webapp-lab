@@ -1,0 +1,9 @@
+# Ori agent internal state
+.ori/
+
+# Word / office lock files (left behind when a doc is open)
+.~lock.*#
+
+# OS junk
+.DS_Store
+Thumbs.db

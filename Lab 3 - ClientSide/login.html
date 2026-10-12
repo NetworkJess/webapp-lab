@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        /* ============ TUI / CYBERPUNK STYLE ============ */
+
+        body {
+            background-color: black;            /* black screen */
+            color: #c026ff;                     /* neon purple text */
+            font-family: "Courier New", monospace;
+
+            /* push the terminal box to the middle of the screen */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;                  /* at least full screen tall */
+        }
+
+        /* the terminal window: a glowing box */
+        .terminal {
+            background-color: #0a0a0a;
+            border: 2px solid #c026ff;
+            border-radius: 6px;
+            box-shadow: 0 0 15px #c026ff;       /* purple glow around the box */
+            width: 460px;
+            padding: 20px;
+        }
+
+        /* the little bar along the top, like a terminal window */
+        .titlebar {
+            background-color: #111111;
+            border-bottom: 1px solid #c026ff;
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        label {
+            color: #7df9ff;                     /* light cyan labels */
+            font-size: 16px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            background-color: black;
+            color: #c026ff;
+            border: 1px solid #c026ff;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* the submit button: purple with black text, glows on hover */
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #c026ff;
+            color: black;
+            border: none;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover {
+            box-shadow: 0 0 12px #c026ff;       /* glow when hovered */
+        }
+
+        /* small extra buttons and links */
+        button {
+            background-color: black;
+            color: #c026ff;
+            border: 1px solid #c026ff;
+            font-family: "Courier New", monospace;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        a {
+            color: #7df9ff;                     /* light cyan links */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+
+        <!-- terminal title bar -->
+        <div class="titlebar">
+            jessica@webapp: ~/login
+        </div>
+
+        <h2>SECURE LOGIN</h2>
+
+        <!-- onsubmit runs the JavaScript check first;
+             if it returns false, the form is NOT submitted -->
+        <form name="login" onsubmit="return validateLogin();">
+
+            <label for="username">USERNAME :</label><br>
+            <input type="text" name="username" id="username" placeholder="type your username">
+
+            <label for="password">PASSWORD :</label><br>
+            <input type="password" name="password" id="password" placeholder="type your password">
+
+            <!-- extra 1: show / hide the password -->
+            <button type="button" onclick="togglePassword()">SHOW / HIDE PASSWORD</button>
+            <br><br>
+
+            <!-- extra 2: remember me (saves the username in the browser) -->
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember">REMEMBER ME</label>
+            <br><br>
+
+            <input type="submit" value="LOGIN">
+            <br><br>
+
+            <!-- registration link (we build registration.html in Task 3) -->
+            <a href="registration.html">[ REGISTER NEW ACCOUNT ]</a>
+            <br>
+            <a href="#">[ FORGOT USERNAME / PASSWORD ]</a>
+
+        </form>
+
+    </div>
+
+    <script>
+        // ======= CLIENT SIDE PROCESSING =======
+        // These checks run IN THE BROWSER, before anything is sent anywhere.
+        // They catch obvious mistakes so the user gets quick feedback.
+
+        // check the form when the user clicks LOGIN
+        function validateLogin() {
+            var user = document.getElementById("username");
+            var pass = document.getElementById("password");
+
+            // 1. username cannot be empty
+            if (user.value.trim() == "") {
+                alert("ERROR: Username cannot be empty.");
+                user.focus();               // put the cursor back in the box
+                return false;               // stop the submit
+            }
+
+            // 2. password cannot be empty
+            if (pass.value == "") {
+                alert("ERROR: Password cannot be empty.");
+                pass.focus();
+                return false;
+            }
+
+            // 3. password should be at least 6 characters
+            if (pass.value.length < 6) {
+                alert("ERROR: Password must be at least 6 characters.");
+                pass.focus();
+                return false;
+            }
+
+            // all checks passed
+            alert("ACCESS GRANTED. Welcome, " + user.value + "!");
+            return true;                    // allow the submit
+        }
+
+        // show or hide the password when the button is clicked
+        function togglePassword() {
+            var pass = document.getElementById("password");
+            if (pass.type == "password") {
+                pass.type = "text";         // show it
+            } else {
+                pass.type = "password";     // hide it again
+            }
+        }
+
+        // REMEMBER ME: save the username inside the browser
+        // (saved users are only on THIS computer, in the browser)
+        var rememberBox = document.getElementById("remember");
+        var userBox = document.getElementById("username");
+
+        // when the checkbox changes, save or remove the stored username
+        rememberBox.onchange = function () {
+            if (rememberBox.checked) {
+                localStorage.setItem("savedUser", userBox.value);
+            } else {
+                localStorage.removeItem("savedUser");
+            }
+        };
+
+        // when the page loads, if a username was saved, fill it in
+        var savedUser = localStorage.getItem("savedUser");
+        if (savedUser != null && savedUser != "") {
+            userBox.value = savedUser;
+            rememberBox.checked = true;
+        }
+    </script>
+
+</body>
+</html>
